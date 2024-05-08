@@ -17,24 +17,33 @@
       <span class="fw-bold fs-4">CamerExpress</span>
     </div>
 
-    <nav id="navbar" class="navbar">
-      <ul>
-        <li><a class="nav-link scrollto active" href="#">Accueil</a></li>
-        <li><a class="nav-link scrollto" href="#">A propos</a></li>
-        <li><a class="nav-link scrollto" href="#">Nos trajets</a></li>
-        <li><a class="nav-link scrollto" href="#">Aide</a></li>
-        <li class="dropdown">
-          <a href="#"
-            ><span>Mentions légales </span> <i class="bi bi-chevron-down"></i
-          ></a>
-          <ul>
-            <li><a href="#">Politique de confidentialité</a></li>
-            <li><a href="#">Condition générale d'utilisation</a></li>
-          </ul>
+    <div id="navbar" class="navbar shadow-none">
+      <ul class=" ">
+        <li>
+          <a
+            routerLink="/home"
+            routerLinkActive="active"
+            class="nav-link"
+            href="#"
+            >Accueil</a
+          >
         </li>
+        <li><a class="nav-link" href="#">A propos</a></li>
+        <li><a class="nav-link" href="#">Nos trajets</a></li>
+        <li><a class="nav-link" href="#">Aide</a></li>
+        <li><a class="nav-link" href="#">Mentions légales</a></li>
       </ul>
-      <button mat-button class="bi bi-list mobile-nav-toggle"></button>
-    </nav>
+      <i class="bi mobile-nav-toggle bi-x d-none" (click)="toggle_menu()"></i>
+    </div>
+    <button
+      class="mobile-nav-toggle"
+      type="button"
+      mat-icon-button
+      (click)="toggle_menu()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
     <!-- .navbar -->
   </div>
 </header>
