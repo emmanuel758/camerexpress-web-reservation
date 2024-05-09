@@ -34,6 +34,8 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { DatePipe } from '@angular/common';
 import { NavbarComponent } from './Components/components/navbar/navbar.component';
 import { FooterComponent } from './Components/components/footer/footer.component';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { FooterComponent } from './Components/components/footer/footer.component
     FooterComponent,
   ],
   imports: [
+    MatDividerModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     RouterModule,
