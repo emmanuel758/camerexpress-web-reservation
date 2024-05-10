@@ -34,6 +34,7 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { DatePipe } from '@angular/common';
 import { NavbarComponent } from './Components/components/navbar/navbar.component';
 import { FooterComponent } from './Components/components/footer/footer.component';
+import { BadgeComponent } from './Components/components/badge/badge.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FooterComponent } from './Components/components/footer/footer.component
     FullLoaderComponent,
     NavbarComponent,
     FooterComponent,
+    BadgeComponent,
   ],
   imports: [
     BrowserAnimationsModule,

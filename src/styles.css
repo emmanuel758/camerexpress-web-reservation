@@ -9,8 +9,9 @@
 :root {
   scroll-behavior: smooth;
   --primary-light-color: #1A9FEA;
+  /* 0081c7 */
   --primary-light-variant: #E8F5FD;
-  --secondary-light-color: #3a90be;
+  --secondary-light-color: #2f779e;
   --tertiary-light-color: #8ec8e7;
   --primary-dark-color: #1D1D1D;
   --secondary-dark-color: #5c5c5c;
@@ -208,6 +209,10 @@
   color: var(--primary-light-color) !important;
 }
 
+.primar-dark-color {
+  color: var(--secondary-light-color) !important;
+}
+
 .bg-white {
   background: #fff;
 }
@@ -288,7 +293,7 @@ body {
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif !important;
   color: #444444;
 }
 
