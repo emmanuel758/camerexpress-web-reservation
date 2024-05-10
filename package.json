@@ -25,7 +25,6 @@
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
     "material-icons": "^1.13.12",
-    "ngx-mat-timepicker": "^17.1.0",
     "ngx-scrolltop": "^6.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
