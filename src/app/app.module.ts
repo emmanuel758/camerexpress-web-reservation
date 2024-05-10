@@ -30,7 +30,6 @@ import { DeleteComponent } from './Components/dialogs/delete/delete.component';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MyErrorStateMatcher } from './Components/Utils/MyErroStateMatcher';
 import { FullLoaderComponent } from './Components/components/full-loader/full-loader.component';
-import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { DatePipe } from '@angular/common';
 import { NavbarComponent } from './Components/components/navbar/navbar.component';
 import { FooterComponent } from './Components/components/footer/footer.component';
@@ -55,7 +54,6 @@ import { BadgeComponent } from './Components/components/badge/badge.component';
     AppRoutingModule,
     RouterModule,
     NgxScrollTopModule,
-    NgxMatTimepickerModule,
     HttpClientModule,
     FormsModule,
     MatIconModule,
