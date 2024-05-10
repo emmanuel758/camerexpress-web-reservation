@@ -1,0 +1,11 @@
+.border-primary {
+    border-color: var(--primary-light-color) !important;
+}
+
+.bg-badge {
+    background-color: #e5f2f9;
+}
+
+.badge-container {
+    /* min-width: 250px; */
+}

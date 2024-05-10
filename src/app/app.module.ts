@@ -35,6 +35,7 @@ import { DatePipe } from '@angular/common';
 import { NavbarComponent } from './Components/components/navbar/navbar.component';
 import { FooterComponent } from './Components/components/footer/footer.component';
 import {MatDividerModule} from '@angular/material/divider';
+import { BadgeComponent } from './Components/components/badge/badge.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {MatDividerModule} from '@angular/material/divider';
     FullLoaderComponent,
     NavbarComponent,
     FooterComponent,
+    BadgeComponent,
   ],
   imports: [
     MatDividerModule,
