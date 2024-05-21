@@ -18,4 +18,10 @@ export class LoaderService {
   setFullLoading(state: boolean) {
     this.isFullLoading = state;
   }
+
+  // For simple loader
+  isLoading = false;
+  setIsLoading(state: boolean) {
+    this.isLoading = state;
+  }
 }

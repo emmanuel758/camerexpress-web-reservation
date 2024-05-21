@@ -1,0 +1,109 @@
+<div class="card mat-elevation-z1">
+  <div class="card-body p-0">
+    <!-- container-1 -->
+    <div class="d-flex justify-content-between p-3">
+      <!-- ville & date area -->
+      <div class="d-flex">
+        <!-- dates -->
+        <div>
+          <!-- date depart -->
+          <div class="mb-3 d-flex flex-column">
+            <span class="mb-1 fw-semibold text-secondary-dark"
+              >Lun. 10 Jan 2024</span
+            >
+            <span class="small text-secondary">14:25</span>
+          </div>
+
+          <!-- date arriver -->
+          <div class="d-flex flex-column">
+            <span class="mb-1 fw-semibold text-secondary-dark"
+              >Lun. 10 Jan 2024</span
+            >
+            <span class="small text-secondary">14:25</span>
+          </div>
+        </div>
+
+        <!-- divider icon -->
+        <div class="d-flex flex-column align-items-center ms-4 me-4">
+          <i class="bi bi-circle text-secondary"></i>
+          <div class="divider bg-secondary text-secondary">.</div>
+          <i class="bi bi-circle-fill text-secondary"></i>
+        </div>
+
+        <!-- villes -->
+        <div class="d-flex flex-column pt-1 pb-1">
+          <span class="fw-semibold text-secondary" style="margin-bottom: 35px"
+            >Yaounde</span
+          >
+          <span class="fw-semibold text-secondary">Douala</span>
+        </div>
+      </div>
+
+      <!-- bouton area -->
+      <div class="d-flex flex-column">
+        <!-- detail btn -->
+        <button mat-stroked-button class="small rounded-pill mb-2">
+          Details
+        </button>
+
+        <!-- reconduire btn -->
+        <button mat-button class="small rounded-pill">
+          <mat-icon matPrefix class="me-2">synchronize</mat-icon>Reconduire
+        </button>
+      </div>
+    </div>
+
+    <!-- container-2 -->
+    <div
+      class="d-flex align-items-center justify-content-between p-2 ps-3 pe-3 bg-light"
+    >
+      <!-- chips area -->
+      <mat-chip-set class="example-chip" cdkDropList>
+        <mat-chip (click)="alert()" class="example-box small">
+          <mat-icon matChipAvatar class="text-secondary">apartment</mat-icon>
+          General Express (Mvan)
+        </mat-chip>
+        <mat-chip class="example-box small">
+          <mat-icon matChipAvatar class="text-secondary"
+            >directions_bus</mat-icon
+          >
+          Direct</mat-chip
+        >
+
+        <mat-chip class="example-box small">
+          <mat-icon matChipAvatar class="text-secondary">wifi</mat-icon
+          >Wifi</mat-chip
+        >
+        <mat-chip class="example-box small">
+          <mat-icon matChipAvatar class="text-secondary"
+            >power</mat-icon
+          >Prise</mat-chip
+        >
+      </mat-chip-set>
+
+      <div>
+        <span
+          class="class-vip-mark small rounded-pill fw-semibold bg-danger d-flex justify-content-center align-items-center"
+          >VIP</span
+        >
+      </div>
+    </div>
+
+    <!-- container-3 -->
+    <div class="d-flex align-items-center justify-content-between p-3">
+      <!-- price -->
+      <div class="d-flex flex-column">
+        <span class="primar-color mb-1 fs-5 fw-semibold">4000 FCFA</span>
+        <span class="small text-secondary">Prix standard / passager</span>
+      </div>
+
+      <!-- button -->
+      <button mat-button class="rounded-pill primary-light-button">
+        <div class="d-flex align-items-center ps-2 pe-2 text-white">
+          <span>Réserver</span>
+          <mat-icon matPrefix class="ms-2">arrow_forward</mat-icon>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

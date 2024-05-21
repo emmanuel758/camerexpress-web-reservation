@@ -1,0 +1,146 @@
+<!-- navbar header -->
+<app-navbar></app-navbar>
+
+<!-- ===== CONTENT ===== -->
+<main id="main" class="pt-4 pb-4 bg-light">
+  <div class="container">
+    <!-- back button area -->
+    <div class="d-flex align-items-center mb-4">
+      <!-- back button -->
+      <button mat-button class="rounded-pill bg-gray me-3">
+        <div class="d-flex align-items-center ps-2 pe-2 text-secondary-dark">
+          <mat-icon matPrefix class="me-2">arrow_back</mat-icon>
+          <span>Retour</span>
+        </div>
+      </button>
+
+      <!-- itineraire info area -->
+      <div
+        class="d-flex align-items-center bg-gray rounded-pill p-2 h-100 ps-3 pe-3 h-48"
+      >
+        <span>Yaounde</span>
+        <i
+          class="bi bi-circle-fill text-secondary ms-2 me-2 point-separator"
+        ></i>
+        <span>Douala</span>
+      </div>
+    </div>
+
+    <!-- filter header -->
+    <div
+      class="d-flex align-items-center justify-content-between bg-white pe-3 rounded-2 border-secondary-subtle border-1 border-top border-bottom border-start border-end mb-3"
+    >
+      <!-- filter btn -->
+      <button mat-button (click)="toggleFilterVisibility()" class="rounded-2">
+        <div class="d-flex align-items-center ps-2 pe-2 text-secondary-dark">
+          <mat-icon matPrefix class="me-2">menu</mat-icon>
+          <span>
+            {{
+              isFilterVisible ? "Masquer le filtre" : "Afficher le filtre"
+            }}</span
+          >
+        </div>
+      </button>
+
+      <!-- result number -->
+      <div>
+        <span class="bg-gray p-2 small rounded-2 text-secondary"
+          >10 resultats</span
+        >
+      </div>
+    </div>
+
+    <!-- filter content -->
+    <div *ngIf="isFilterVisible" class="p-3 bg-white ps-4 pe-4 pt-4 mb-4">
+      <div class="row">
+        <!-- Agence -->
+        <div class="col-sm-4">
+          <mat-form-field appearance="outline" class="p-0 w-100">
+            <mat-label>Agence</mat-label>
+            <mat-select>
+              <mat-option>Hello</mat-option>
+            </mat-select>
+            <!-- si un site a ete selectionnee -->
+            <!-- <button
+            *ngIf="site.id != -1"
+            matSuffix
+            mat-icon-button
+            (click)="site.id = -1"
+          >
+            <mat-icon class="text-secondary">close</mat-icon>
+          </button> -->
+          </mat-form-field>
+        </div>
+        <!-- Classe -->
+        <div class="col-sm-4">
+          <mat-form-field appearance="outline" class="p-0 w-100">
+            <mat-label>Classe</mat-label>
+            <mat-select>
+              <mat-option>Hello</mat-option>
+            </mat-select>
+            <!-- si un site a ete selectionnee -->
+            <!-- <button
+            *ngIf="site.id != -1"
+            matSuffix
+            mat-icon-button
+            (click)="site.id = -1"
+          >
+            <mat-icon class="text-secondary">close</mat-icon>
+          </button> -->
+          </mat-form-field>
+        </div>
+        <!-- Date depart -->
+        <div class="col-sm-4">
+          <mat-form-field appearance="outline" class="p-0 w-100 d-non">
+            <mat-label>Date de départ</mat-label>
+            <input
+              matInput
+              [matDatepicker]="datePicker"
+              placeholder="Selectionner une date"
+              [readonly]="true"
+            />
+            <!-- si une date n'a pas ete selectionnee -->
+            <!-- <button
+            *ngIf="dateDepart == null"
+            matSuffix
+            mat-icon-button
+            (click)="datePicker.open()"
+          >
+            <mat-icon class="text-secondary">calendar_month</mat-icon>
+          </button> -->
+            <!-- si une date a ete selectionnee -->
+            <!-- <button
+            *ngIf="dateDepart != null"
+            matSuffix
+            mat-icon-button
+            (click)="dateDepart = null"
+          >
+            <mat-icon class="text-secondary">close</mat-icon>
+          </button> -->
+            <mat-datepicker #datePicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Annuler</button>
+                <button mat-raised-button color="primary" matDatepickerApply>
+                  Valider
+                </button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- voyage liste -->
+    <div class="mb-3">
+      <div class="row">
+        <app-voyage-item class="col-lg-6 mb-4"></app-voyage-item>
+        <app-voyage-item class="col-lg-6 mb-4"></app-voyage-item>
+        <app-voyage-item class="col-lg-6 mb-4"></app-voyage-item>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- ===== END CONTENT ===== -->
+
+<!-- footer -->
+<app-footer></app-footer>

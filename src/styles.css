@@ -18,6 +18,7 @@
   --tertiary-dark-color: #cccccc;
   --danger-color: #F60D2B;
   --light-color: #F6F6F6;
+  --gray-color: #e6e5e5;
 }
 
 :host {
@@ -42,6 +43,8 @@
   display: flex;
   align-items: center;
   position: fixed;
+  /* left: 12px; */
+  margin-left: 12px;
   visibility: hidden;
   z-index: 10000;
   will-change: transform;
@@ -217,8 +220,16 @@
   background: #fff;
 }
 
+.text-secondary-dark{
+  color: var(--secondary-dark-color) !important;
+}
+
 .bg-light {
   background-color: var(--light-color) !important;
+}
+
+.bg-gray {
+  background-color: var(--gray-color) !important;
 }
 
 .action-btn {

@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './Components/pages/home/home.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -33,8 +34,10 @@ import { FullLoaderComponent } from './Components/components/full-loader/full-lo
 import { DatePipe } from '@angular/common';
 import { NavbarComponent } from './Components/components/navbar/navbar.component';
 import { FooterComponent } from './Components/components/footer/footer.component';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { BadgeComponent } from './Components/components/badge/badge.component';
+import { VoyageListComponent } from './Components/pages/voyage-list/voyage-list.component';
+import { VoyageItemComponent } from './Components/components/voyage-item/voyage-item.component';
 
 
 @NgModule({
@@ -47,6 +50,8 @@ import { BadgeComponent } from './Components/components/badge/badge.component';
     NavbarComponent,
     FooterComponent,
     BadgeComponent,
+    VoyageListComponent,
+    VoyageItemComponent,
   ],
   imports: [
     MatDividerModule,
@@ -57,6 +62,7 @@ import { BadgeComponent } from './Components/components/badge/badge.component';
     HttpClientModule,
     FormsModule,
     MatIconModule,
+    MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

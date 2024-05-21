@@ -3,26 +3,14 @@
 <!-- End header -->
 
 <body>
-  <!-- ===== hero section ====== -->
-  <!-- <section id="hero" class="d-flex align-items-center">
-    <div class="container" data-aos="zoom-out" data-aos-delay="100">
-      <h1>Bienvenu sur <span>CamerExpress</span></h1>
-      <h2>La plateforme de réservation de billets de voyage</h2>
-      <div>
-        <a href="#searchform" class="btn-get-started">Commencer</a>
-      </div>
-    </div>
-  </section> -->
-  <!-- End Hero -->
-
   <!-- ==== content ==== -->
   <main id="mai" class="bg-white">
     <!--  ==== image ==== -->
     <div class="img container-fluid"></div>
 
-    <div class="container" style="margin-top: -110px">
+    <div class="container" style="margin-top: -140px">
       <div class="text-center mb-3">
-        <span class="fw-bold fs-3 text-white ">
+        <span class="fw-bold fs-3 text-white">
           Voyage en bus pas cheres et en securite avec nous
         </span>
       </div>
@@ -33,25 +21,79 @@
         <div class="col-lg-6 col-xl-3">
           <mat-form-field appearance="outline" class="p-0 w-100">
             <mat-label>De</mat-label>
-            <input matInput placeholder="Ville de depart" />
-            <mat-icon matSuffix>expand_more</mat-icon>
+            <mat-select
+              (valueChange)="onVilleDeparChange($event)"
+              [value]="villeDepart.id"
+              [(ngModel)]="villeDepart.id"
+              [formControl]="villeDepartFormControl"
+              [errorStateMatcher]="matcher"
+            >
+              <mat-option *ngFor="let ville of villes" value="{{ ville.id }}">{{
+                ville.nom
+              }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
+
         <!-- A -->
         <div class="col-lg-6 col-xl-3">
           <mat-form-field appearance="outline" class="p-0 w-100">
             <mat-label>A</mat-label>
-            <input matInput placeholder="Ville d'arrivee" />
-            <mat-icon matSuffix>expand_more</mat-icon>
+            <mat-select
+              [value]="villeDestination.id"
+              [(ngModel)]="villeDestination.id"
+              [formControl]="villeDestinationFormControl"
+              [errorStateMatcher]="matcher"
+            >
+              <mat-option *ngFor="let ville of villes" value="{{ ville.id }}">{{
+                ville.nom
+              }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
 
         <!-- Date depart -->
         <div class="col-lg-6 col-xl-3">
-          <mat-form-field appearance="outline" class="p-0 w-100">
-            <mat-label>Date depart</mat-label>
-            <input matInput placeholder="Placeholder" />
-            <mat-icon matSuffix>calendar_month</mat-icon>
+          <mat-form-field appearance="outline" class="p-0 w-100 d-non">
+            <mat-label>Date de départ</mat-label>
+            <input
+              matInput
+              [matDatepicker]="datePicker"
+              placeholder="Selectionner une date"
+              [formControl]="dateFormControl"
+              [errorStateMatcher]="matcher"
+              [(ngModel)]="dateDepart"
+              [readonly]="true"
+            />
+
+            <!-- si une date n'a pas ete selectionnee -->
+            <button
+              *ngIf="dateDepart == null"
+              matSuffix
+              mat-icon-button
+              (click)="datePicker.open()"
+            >
+              <mat-icon class="text-secondary">calendar_month</mat-icon>
+            </button>
+
+            <!-- si une date a ete selectionnee -->
+            <button
+              *ngIf="dateDepart != null"
+              matSuffix
+              mat-icon-button
+              (click)="dateDepart = null"
+            >
+              <mat-icon class="text-secondary">close</mat-icon>
+            </button>
+
+            <mat-datepicker #datePicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Annuler</button>
+                <button mat-raised-button color="primary" matDatepickerApply>
+                  Valider
+                </button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
           </mat-form-field>
         </div>
 
@@ -59,19 +101,49 @@
         <div class="col-lg-6 col-xl-3">
           <mat-form-field appearance="outline" class="p-0 w-100">
             <mat-label>Agence</mat-label>
-            <input matInput placeholder="Nom Agence" />
-            <mat-icon matSuffix>expand_more</mat-icon>
+            <mat-select
+              [value]="site.id"
+              [(ngModel)]="site.id"
+              [formControl]="siteFormControl"
+              [errorStateMatcher]="matcher"
+            >
+              <mat-option *ngFor="let site of sites" value="{{ site.id }}">{{
+                site.agence.nom + "(" + site.quartier + ")"
+              }}</mat-option>
+            </mat-select>
+
+            <!-- si un site a ete selectionnee -->
+            <button
+              *ngIf="site.id != -1"
+              matSuffix
+              mat-icon-button
+              (click)="site.id = -1"
+            >
+              <mat-icon class="text-secondary">close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
 
         <!-- bouton -->
         <div class="col-md-12 mb-4">
           <button
+            (click)="rechercher()"
             class="col-md-12 w-100 primary-light-butto"
             mat-flat-button
             color="primary"
+            [disabled]="_loaderService.isLoading"
           >
-            Rechercher
+            <div class="d-flex align-items-center">
+              <span
+                *ngIf="_loaderService.isLoading"
+                class="spinner-border spinner-border-sm text-secondary me-2"
+              ></span>
+              {{
+                _loaderService.isLoading
+                  ? "Recherche en cours ..."
+                  : "Rechercher"
+              }}
+            </div>
           </button>
         </div>
       </div>

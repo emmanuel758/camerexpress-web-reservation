@@ -1,10 +1,6 @@
-<app-full-loader [isLoading]="_loaderService.isFullLoading" />
-<router-outlet> </router-outlet>
-<!-- <div id="preloader"></div> -->
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"
-  ><i class="bi bi-arrow-up-short"></i
-></a>
-
+<router-outlet
+  ><app-full-loader [isLoading]="_loaderService.isFullLoading" />
+</router-outlet>
 <ngx-scrolltop></ngx-scrolltop>
 
 <!-- Notifier container -->
