@@ -42,12 +42,12 @@
       <!-- bouton area -->
       <div class="d-flex flex-column">
         <!-- detail btn -->
-        <button mat-stroked-button class="small rounded-pill mb-2">
+        <button mat-stroked-button (click)="showDetail()" class="small rounded-pill mb-2">
           Details
         </button>
 
         <!-- reconduire btn -->
-        <button mat-button class="small rounded-pill">
+        <button mat-button (click)="reconduct()" class="small rounded-pill">
           <mat-icon matPrefix class="me-2">synchronize</mat-icon>Reconduire
         </button>
       </div>
@@ -59,7 +59,7 @@
     >
       <!-- chips area -->
       <mat-chip-set class="example-chip" cdkDropList>
-        <mat-chip (click)="alert()" class="example-box small">
+        <mat-chip (click)="goToAgencyLocation()" class="example-box small">
           <mat-icon matChipAvatar class="text-secondary">apartment</mat-icon>
           General Express (Mvan)
         </mat-chip>
@@ -98,7 +98,7 @@
       </div>
 
       <!-- button -->
-      <button mat-button class="rounded-pill primary-light-button">
+      <button mat-button (click)="goToRservationPage()" class="rounded-pill primary-light-button">
         <div class="d-flex align-items-center ps-2 pe-2 text-white">
           <span>Réserver</span>
           <mat-icon matPrefix class="ms-2">arrow_forward</mat-icon>

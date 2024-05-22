@@ -1,0 +1,142 @@
+<!-- Header -->
+<div
+  class="fw-bold text-start d-flex pt-2 pb-2 ps-3 pe-3 justify-content-between align-items-center"
+>
+  <span>Détails du voyage N° {{ voyage.code }}</span>
+
+  <button mat-button [mat-dialog-close]="true" class="text-center">
+    <mat-icon class="me-0">close</mat-icon>
+  </button>
+</div>
+
+<!-- Content -->
+<mat-dialog-content class="mat-typography pb-1 p-3">
+  <!-- villes -->
+  <div class="row">
+    <!-- ville depart -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Ville de départ</mat-label>
+        <input
+          matInput
+          ngModel
+          [(ngModel)]="voyage.itineraire.villeDepart.nom"
+          placeholder="Ville de départ"
+          [readonly]="true"
+        />
+      </mat-form-field>
+    </div>
+
+    <!-- ville destination -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Ville de destination</mat-label>
+        <input
+          matInput
+          ngModel
+          [(ngModel)]="voyage.itineraire.villeDestination.nom"
+          placeholder="Ville de destination"
+          [readonly]="true"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Dates -->
+  <div class="row">
+    <!-- date depart -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Date de départ</mat-label>
+        <input
+          matInput
+          ngModel
+          [(ngModel)]="dateDepart"
+          placeholder="Date de départ"
+          [readonly]="true"
+        />
+      </mat-form-field>
+    </div>
+
+    <!-- date destination -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Date d'arrivée (estimation)</mat-label>
+        <input
+          matInput
+          ngModel
+          [(ngModel)]="dateDestinaition"
+          placeholder="Date d'arrivée"
+          [readonly]="true"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Agence & classe -->
+  <div class="row">
+    <!-- agence -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Agence</mat-label>
+        <input
+          matInput
+          ngModel
+          [(ngModel)]="siteName"
+          placeholder="Agence"
+          [readonly]="true"
+        />
+      </mat-form-field>
+    </div>
+
+    <!-- classe -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Classe</mat-label>
+        <input
+          matInput
+          ngModel
+          [(ngModel)]="voyage.bus.classe"
+          placeholder="Classe"
+          [readonly]="true"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Arrets -->
+  <div class="row">
+    <div class="col-md-12">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Arrêt(s)</mat-label>
+        <input matInput ngModel [(ngModel)]="arrets" placeholder="Arrêt(s)" [readonly]="true" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- wifi & prise -->
+  <div class="row">
+    <!-- wifi -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Wifi</mat-label>
+        <input matInput ngModel placeholder="Wifi" [readonly]="true" />
+      </mat-form-field>
+    </div>
+
+    <!-- classe -->
+    <div class="col-md-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Prise</mat-label>
+        <input matInput ngModel placeholder="Prise" [readonly]="true" />
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<!-- Button action -->
+<mat-dialog-actions align="end" class="p-3 pt-1">
+  <button class="primary-dark-button" mat-button [mat-dialog-close]="true">
+    Fermer
+  </button>
+</mat-dialog-actions>

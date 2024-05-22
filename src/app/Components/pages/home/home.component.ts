@@ -2,6 +2,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { Site } from 'src/app/Models/site.interface';
 import { Ville } from 'src/app/Models/ville.interface';
@@ -22,7 +23,8 @@ export class HomeComponent {
     private _siteService: SiteService,
     private _notifierService: NotifierService,
     protected _loaderService: LoaderService,
-    private _voyageService: VoyageService
+    private _voyageService: VoyageService,
+    private _router: Router
   ) { }
 
   // Matcher
@@ -80,9 +82,17 @@ export class HomeComponent {
 
         try {
 
+          // on sauvegarde les valeur pour le filtre (agence, date depart, classe)
+          if (this.dateDepart != null)
+            this._voyageService.dateDepart = new Date(this.dateDepart.toISOString().split('T')[0] + "T00:00:00.000");
+          this._voyageService.site = this.site;
+          this._voyageService.villeDepart = this.villeDepart;
+          this._voyageService.villeDestination = this.villeDestination;
+          this._voyageService.sites = this.sites;
+
           // send request
           this._voyageService.getVoyages(
-            this.villeDepart.id, this.villeDestination.id, this.dateDepart != null ? this.dateDepart.toISOString().split('T')[0] + "T00:00:00.000" : "", this.site.id
+            this.villeDepart.id, this.villeDestination.id
           ).subscribe(response => {
 
             // stop loader
@@ -99,8 +109,15 @@ export class HomeComponent {
 
             } else {
               if (responseJson.status == HttpStatusCode.Ok) {
+
+                // on recupere la liste des voyage
                 this._voyageService.voyages = responseJson.data;
+
+                // on affiche dans la console
                 console.log(responseJson.data);
+
+                // on navigue vers la page des voyages
+                this._router.navigateByUrl('voyages');
 
               } else {
                 this._notifierService.notify('default', "Aucun trajet correspondant.");

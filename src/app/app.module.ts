@@ -38,6 +38,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { BadgeComponent } from './Components/components/badge/badge.component';
 import { VoyageListComponent } from './Components/pages/voyage-list/voyage-list.component';
 import { VoyageItemComponent } from './Components/components/voyage-item/voyage-item.component';
+import { ShowVoyageDialogComponent } from './Components/dialogs/show-voyage-dialog/show-voyage-dialog.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { VoyageItemComponent } from './Components/components/voyage-item/voyage-
     BadgeComponent,
     VoyageListComponent,
     VoyageItemComponent,
+    ShowVoyageDialogComponent,
   ],
   imports: [
     MatDividerModule,

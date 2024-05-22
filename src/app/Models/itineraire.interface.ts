@@ -10,4 +10,5 @@ export class Itineraire {
     prixClassique!: number
     prixVip!: number
     created_at!: Date
+    arrets!: string
 }

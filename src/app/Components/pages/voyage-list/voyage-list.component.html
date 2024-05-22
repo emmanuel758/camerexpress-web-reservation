@@ -7,7 +7,11 @@
     <!-- back button area -->
     <div class="d-flex align-items-center mb-4">
       <!-- back button -->
-      <button mat-button class="rounded-pill bg-gray me-3">
+      <button
+        (click)="backToHome()"
+        mat-button
+        class="rounded-pill bg-gray me-3"
+      >
         <div class="d-flex align-items-center ps-2 pe-2 text-secondary-dark">
           <mat-icon matPrefix class="me-2">arrow_back</mat-icon>
           <span>Retour</span>
@@ -44,9 +48,9 @@
 
       <!-- result number -->
       <div>
-        <span class="bg-gray p-2 small rounded-2 text-secondary"
-          >10 resultats</span
-        >
+        <span class="bg-gray p-2 small rounded-2 text-secondary">{{
+          _voyageService.voyages.length + " resultats"
+        }}</span>
       </div>
     </div>
 
@@ -57,38 +61,52 @@
         <div class="col-sm-4">
           <mat-form-field appearance="outline" class="p-0 w-100">
             <mat-label>Agence</mat-label>
-            <mat-select>
-              <mat-option>Hello</mat-option>
+            <mat-select
+              [value]="_voyageService.site.id"
+              [(ngModel)]="_voyageService.site.id"
+            >
+              <mat-option
+                *ngFor="let site of _voyageService.sites"
+                value="{{ site.id }}"
+                >{{ site.agence.nom + "(" + site.quartier + ")" }}</mat-option
+              >
             </mat-select>
             <!-- si un site a ete selectionnee -->
-            <!-- <button
-            *ngIf="site.id != -1"
-            matSuffix
-            mat-icon-button
-            (click)="site.id = -1"
-          >
-            <mat-icon class="text-secondary">close</mat-icon>
-          </button> -->
+            <button
+              *ngIf="_voyageService.site.id != -1"
+              matSuffix
+              mat-icon-button
+              (click)="_voyageService.site.id = -1"
+            >
+              <mat-icon class="text-secondary">close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
+
         <!-- Classe -->
         <div class="col-sm-4">
           <mat-form-field appearance="outline" class="p-0 w-100">
             <mat-label>Classe</mat-label>
-            <mat-select>
-              <mat-option>Hello</mat-option>
+            <mat-select
+              [value]="_voyageService.classe"
+              [(ngModel)]="_voyageService.classe"
+            >
+              <mat-option>VIP</mat-option>
+              <mat-option>CLASSIQUE</mat-option>
             </mat-select>
-            <!-- si un site a ete selectionnee -->
-            <!-- <button
-            *ngIf="site.id != -1"
-            matSuffix
-            mat-icon-button
-            (click)="site.id = -1"
-          >
-            <mat-icon class="text-secondary">close</mat-icon>
-          </button> -->
+
+            <!-- si une classe a ete selectionnee -->
+            <button
+              *ngIf="_voyageService.classe != null"
+              matSuffix
+              mat-icon-button
+              (click)="_voyageService.classe = null"
+            >
+              <mat-icon class="text-secondary">close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
+
         <!-- Date depart -->
         <div class="col-sm-4">
           <mat-form-field appearance="outline" class="p-0 w-100 d-non">
@@ -100,23 +118,24 @@
               [readonly]="true"
             />
             <!-- si une date n'a pas ete selectionnee -->
-            <!-- <button
-            *ngIf="dateDepart == null"
-            matSuffix
-            mat-icon-button
-            (click)="datePicker.open()"
-          >
-            <mat-icon class="text-secondary">calendar_month</mat-icon>
-          </button> -->
+            <button
+              *ngIf="_voyageService.dateDepart == null"
+              matSuffix
+              mat-icon-button
+              (click)="datePicker.open()"
+            >
+              <mat-icon class="text-secondary">calendar_month</mat-icon>
+            </button>
+
             <!-- si une date a ete selectionnee -->
-            <!-- <button
-            *ngIf="dateDepart != null"
-            matSuffix
-            mat-icon-button
-            (click)="dateDepart = null"
-          >
-            <mat-icon class="text-secondary">close</mat-icon>
-          </button> -->
+            <button
+              *ngIf="_voyageService.dateDepart != null"
+              matSuffix
+              mat-icon-button
+              (click)="_voyageService.dateDepart = null"
+            >
+              <mat-icon class="text-secondary">close</mat-icon>
+            </button>
             <mat-datepicker #datePicker>
               <mat-datepicker-actions>
                 <button mat-button matDatepickerCancel>Annuler</button>
@@ -133,9 +152,15 @@
     <!-- voyage liste -->
     <div class="mb-3">
       <div class="row">
-        <app-voyage-item class="col-lg-6 mb-4"></app-voyage-item>
-        <app-voyage-item class="col-lg-6 mb-4"></app-voyage-item>
-        <app-voyage-item class="col-lg-6 mb-4"></app-voyage-item>
+        <app-voyage-item
+          *ngFor="let voyage of _voyageService.voyages"
+          [voyage]="voyage"
+          class="col-lg-6 mb-4"
+        ></app-voyage-item>
+        <app-voyage-item
+          [voyage]="null"
+          class="col-lg-6 mb-4"
+        ></app-voyage-item>
       </div>
     </div>
   </div>
