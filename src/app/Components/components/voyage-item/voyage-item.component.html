@@ -8,18 +8,20 @@
         <div>
           <!-- date depart -->
           <div class="mb-3 d-flex flex-column">
-            <span class="mb-1 fw-semibold text-secondary-dark"
-              >Lun. 10 Jan 2024</span
-            >
-            <span class="small text-secondary">14:25</span>
+            <span class="mb-1 fw-semibold text-secondary-dark">{{
+              depart_datetime.date
+            }}</span>
+            <span class="small text-secondary">{{ depart_datetime.time }}</span>
           </div>
 
           <!-- date arriver -->
           <div class="d-flex flex-column">
-            <span class="mb-1 fw-semibold text-secondary-dark"
-              >Lun. 10 Jan 2024</span
-            >
-            <span class="small text-secondary">14:25</span>
+            <span class="mb-1 fw-semibold text-secondary-dark">{{
+              arriver_datetime.date
+            }}</span>
+            <span class="small text-secondary">{{
+              arriver_datetime.time
+            }}</span>
           </div>
         </div>
 
@@ -32,17 +34,25 @@
 
         <!-- villes -->
         <div class="d-flex flex-column pt-1 pb-1">
-          <span class="fw-semibold text-secondary" style="margin-bottom: 35px"
-            >Yaounde</span
+          <span
+            class="fw-semibold text-secondary"
+            style="margin-bottom: 35px"
+            >{{ voyage.itineraire.villeDepart.nom }}</span
           >
-          <span class="fw-semibold text-secondary">Douala</span>
+          <span class="fw-semibold text-secondary">{{
+            voyage.itineraire.villeDestination.nom
+          }}</span>
         </div>
       </div>
 
       <!-- bouton area -->
       <div class="d-flex flex-column">
         <!-- detail btn -->
-        <button mat-stroked-button (click)="showDetail()" class="small rounded-pill mb-2">
+        <button
+          mat-stroked-button
+          (click)="showDetail()"
+          class="small rounded-pill mb-2"
+        >
           Details
         </button>
 
@@ -75,8 +85,7 @@
           >Wifi</mat-chip
         >
         <mat-chip class="example-box small">
-          <mat-icon matChipAvatar class="text-secondary"
-            >power</mat-icon
+          <mat-icon matChipAvatar class="text-secondary">power</mat-icon
           >Prise</mat-chip
         >
       </mat-chip-set>
@@ -98,7 +107,11 @@
       </div>
 
       <!-- button -->
-      <button mat-button (click)="goToRservationPage()" class="rounded-pill primary-light-button">
+      <button
+        mat-button
+        (click)="goToRservationPage()"
+        class="rounded-pill primary-light-button"
+      >
         <div class="d-flex align-items-center ps-2 pe-2 text-white">
           <span>Réserver</span>
           <mat-icon matPrefix class="ms-2">arrow_forward</mat-icon>

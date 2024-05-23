@@ -22,17 +22,17 @@ export class ShowVoyageDialogComponent {
     this.voyage = data.voyage;
 
     // format dates
-    let currentDate = this.voyage.dateDepart;
-    let finalDate = this.voyage.dateDepart;
+    let currentDate: Date = new Date(this.voyage.dateDepart);
+    let finalDate: Date = new Date(this.voyage.dateDepart);
     finalDate.setHours(currentDate.getHours() + this.voyage.itineraire.duree);
 
-    this.dateDepart = currentDate.toUTCString();
-    this.dateDestinaition = finalDate.toUTCString();
+    this.dateDepart = currentDate.toDateString();
+    this.dateDestinaition = finalDate.toDateString();
 
     // parse site name
     this.siteName = this.voyage.itineraire.site.agence.nom + '(' + this.voyage.itineraire.site.quartier + ')';
 
     // parse arrets
-    this.arrets = this.voyage.itineraire.arrets.replace(',', ' - ');
+    // this.arrets = this.voyage.itineraire.arrets.replace(',', ' - ');
   }
 }

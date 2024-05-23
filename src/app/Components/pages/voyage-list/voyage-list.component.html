@@ -22,11 +22,11 @@
       <div
         class="d-flex align-items-center bg-gray rounded-pill p-2 h-100 ps-3 pe-3 h-48"
       >
-        <span>Yaounde</span>
+        <span>{{ _voyageService.villeDepart.nom }}</span>
         <i
           class="bi bi-circle-fill text-secondary ms-2 me-2 point-separator"
         ></i>
-        <span>Douala</span>
+        <span>{{ _voyageService.villeDestination.nom }}</span>
       </div>
     </div>
 
@@ -155,10 +155,6 @@
         <app-voyage-item
           *ngFor="let voyage of _voyageService.voyages"
           [voyage]="voyage"
-          class="col-lg-6 mb-4"
-        ></app-voyage-item>
-        <app-voyage-item
-          [voyage]="null"
           class="col-lg-6 mb-4"
         ></app-voyage-item>
       </div>

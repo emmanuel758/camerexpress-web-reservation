@@ -28,7 +28,7 @@ export class VoyageService {
   villeDepart: Ville = new Ville();
   villeDestination: Ville = new Ville();
   dateDepart: Date | null = null;
-  site: Site = new Site();
+  site: Site  = new Site();
   // liste des sites en fonction de la ville de depart
   sites: Site[] = [];
   classe: string | null = "";

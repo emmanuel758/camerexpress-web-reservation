@@ -13,7 +13,7 @@ export class VoyageListComponent {
   constructor(
     protected _voyageService: VoyageService,
     private _router: Router,
-    private _location:Location
+    private _location: Location
   ) { }
 
   // toggle filter visibility
@@ -26,7 +26,10 @@ export class VoyageListComponent {
     this.isFilterVisible = !this.isFilterVisible;
   }
 
-  backToHome(){
+  /**
+   * Back to home
+   */
+  backToHome() {
     this._location.back();
   }
 }

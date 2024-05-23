@@ -85,9 +85,19 @@ export class HomeComponent {
           // on sauvegarde les valeur pour le filtre (agence, date depart, classe)
           if (this.dateDepart != null)
             this._voyageService.dateDepart = new Date(this.dateDepart.toISOString().split('T')[0] + "T00:00:00.000");
-          this._voyageService.site = this.site;
-          this._voyageService.villeDepart = this.villeDepart;
-          this._voyageService.villeDestination = this.villeDestination;
+
+          // get site
+          let s: Site | undefined = this.sites.find((s, i) => { return s.id == this.site.id });
+          if (s != undefined)
+            this._voyageService.site = s;
+
+          // ville depart
+          this._voyageService.villeDepart = this.villes.filter((v) => { return v.id == this.villeDepart.id; })[0];
+
+          // ville destination
+          this._voyageService.villeDestination = this.villes.filter((v) => { return v.id == this.villeDestination.id; })[0];
+
+          // liste des site
           this._voyageService.sites = this.sites;
 
           // send request
