@@ -3,12 +3,17 @@
   background-repeat: no-repeat;
   background-size: cover;
   width: "100%";
-  height: 75vh;
+  height: 48vh;
   max-height: 650px;
 }
 
 .bb {
   height: 80px !important;
+}
+
+
+button.btn-home-search {
+  height: 56px !important;
 }
 
 /* .img2 {

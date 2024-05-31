@@ -220,7 +220,7 @@
   background: #fff;
 }
 
-.text-secondary-dark{
+.text-secondary-dark {
   color: var(--secondary-dark-color) !important;
 }
 
@@ -427,4 +427,3 @@ h6 {
   visibility: visible;
   opacity: 1;
 }
-

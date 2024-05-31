@@ -4,6 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ShowVoyageDialogComponent } from '../../dialogs/show-voyage-dialog/show-voyage-dialog.component';
 import { Voyage } from 'src/app/Models/voyage.interface';
 import { DateTime } from 'src/app/Models/datetime.interface';
+import { DatetimeService } from 'src/app/Services/Datetime/datetime.service';
+import { ReservationService } from 'src/app/Services/Reservation/reservation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-voyage-item',
@@ -26,34 +29,16 @@ export class VoyageItemComponent {
   depart_datetime: DateTime = new DateTime();
   arriver_datetime: DateTime = new DateTime();
 
+  //site name
+  siteName = "";
+
   constructor(
     private _matDialog: MatDialog,
-    private _datePipe: DatePipe
+    private _datetimeService: DatetimeService,
+    private _reservationService: ReservationService,
+    private _router:Router
   ) {
 
-  }
-
-  /**
-   * Format date to string 
-   * @param date 
-   * @returns 
-   */
-  formatDate(date: Date): DateTime {
-
-    // date section
-    const day = this._datePipe.transform(date, 'EEE'); // Day of the week, abbreviated
-    const dayNumber = this._datePipe.transform(date, 'dd'); // Day of the month, two digits
-    const month = this._datePipe.transform(date, 'MMM'); // Month, abbreviated
-    const year = this._datePipe.transform(date, 'yyyy'); // Year, full
-
-    // time section
-    const time = this._datePipe.transform(date, 'HH:mm'); // Hours and minutes
-
-    let datetime = new DateTime();
-    datetime.date = `${day}. ${dayNumber} ${month} ${year}`;
-    datetime.time = time + ``;
-
-    return datetime;
   }
 
   // on a en entree le voyage
@@ -72,32 +57,30 @@ export class VoyageItemComponent {
     this._matDialog.open(ShowVoyageDialogComponent, {
       data: {
         voyage: this.voyage
-      }, minWidth: 600
+      }
     });
-  }
-
-  /**
-   * Reconduct sme voyage to current voyage
-   */
-  reconduct() {
-    alert("mark current voyage to receive information from another");
   }
 
   /**
    * Select current voyahe and go to reservation page
    */
   goToRservationPage() {
-    alert("Select current voyage and go to reservation page");
+    // selected voyage
+    this._reservationService.selected_voyage = this.voyage;
+
+    // navigate to reservation form
+    this._router.navigateByUrl("reservation-form");
   }
 
   ngOnInit() {
-    console.log(this.voyage);
-
     this.dateDepart = new Date(this.voyage.dateDepart);
     this.dateArriver = new Date(this.voyage.dateDepart);
     this.dateArriver.setHours(this.dateArriver.getHours() + this.voyage.itineraire.duree);
 
-    this.depart_datetime = this.formatDate(this.dateDepart);
-    this.arriver_datetime = this.formatDate(this.dateArriver);
+    this.depart_datetime = this._datetimeService.formatDate(this.dateDepart);
+    this.arriver_datetime = this._datetimeService.formatDate(this.dateArriver);
+
+    // parse site name
+    this.siteName = this.voyage.itineraire.site.agence.nom + '(' + this.voyage.itineraire.site.quartier + ')';
   }
 }

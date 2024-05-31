@@ -1,0 +1,80 @@
+<!-- Header -->
+<div
+  class="fw-bold text-start d-flex pt-2 pb-2 ps-3 pe-3 justify-content-between align-items-center"
+>
+  <span class="me-4">Passagers</span>
+
+  <button mat-button [mat-dialog-close]="false" class="text-center">
+    <mat-icon class="me-0">close</mat-icon>
+  </button>
+</div>
+
+<!-- Content -->
+<mat-dialog-content class="mat-typography pb-1 p-3">
+  <!-- Adultes -->
+  <div class="col-md-12">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Adulte(s)</mat-label>
+      <input
+        matInput
+        [(ngModel)]="_reservationService.passagers_adultes"
+        placeholder="0"
+        [readonly]="true"
+      />
+
+      <!-- suffix -->
+      <button
+        matSuffix
+        mat-icon-button
+        (click)="_reservationService.add_passager_adulte()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <!-- prefix -->
+      <button
+        matPrefix
+        mat-icon-button
+        (click)="_reservationService.reduce_passager_adulte()"
+      >
+        <mat-icon>remove</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- Enfants (de 0 à 15 ans) -->
+  <div class="col-md-12">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Enfants (de 0 à 15 ans)</mat-label>
+      <input
+        matInput
+        [(ngModel)]="_reservationService.passagers_enfant"
+        placeholder="0"
+        [readonly]="true"
+      />
+
+      <!-- suffix -->
+      <button
+        matSuffix
+        mat-icon-button
+        (click)="_reservationService.add_passager_enfant()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <!-- prefix -->
+      <button
+        matPrefix
+        mat-icon-button
+        (click)="_reservationService.reduce_passager_enfant()"
+      >
+        <mat-icon>remove</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<!-- Button action -->
+<mat-dialog-actions align="end" class="p-3 pt-1">
+  <button class="" mat-button [mat-dialog-close]="false">Fermer</button>
+</mat-dialog-actions>

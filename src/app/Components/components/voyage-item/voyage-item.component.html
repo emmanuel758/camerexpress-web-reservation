@@ -1,9 +1,9 @@
 <div class="card mat-elevation-z1">
   <div class="card-body p-0">
     <!-- container-1 -->
-    <div class="d-flex justify-content-between p-3">
+    <div class="d-sm-flex justify-content-between p-3">
       <!-- ville & date area -->
-      <div class="d-flex">
+      <div class="d-flex pb-3 pb-md-0 pb-lg-0 pb-xl-0">
         <!-- dates -->
         <div>
           <!-- date depart -->
@@ -27,9 +27,14 @@
 
         <!-- divider icon -->
         <div class="d-flex flex-column align-items-center ms-4 me-4">
-          <i class="bi bi-circle text-secondary"></i>
-          <div class="divider bg-secondary text-secondary">.</div>
-          <i class="bi bi-circle-fill text-secondary"></i>
+          <i class="bi bi-circle text-secondary p-0"></i>
+          <div
+            class="divider bg-secondary text-secondary p-0"
+            style="margin-top: -5px !important"
+          >
+            .
+          </div>
+          <i class="bi bi-circle-fill text-secondary p-o" style="margin-top: -3px;"></i>
         </div>
 
         <!-- villes -->
@@ -46,7 +51,7 @@
       </div>
 
       <!-- bouton area -->
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column mt-sm-3">
         <!-- detail btn -->
         <button
           mat-stroked-button
@@ -57,9 +62,9 @@
         </button>
 
         <!-- reconduire btn -->
-        <button mat-button (click)="reconduct()" class="small rounded-pill">
+        <!-- <button mat-button (click)="reconduct()" class="small rounded-pill">
           <mat-icon matPrefix class="me-2">synchronize</mat-icon>Reconduire
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -71,7 +76,7 @@
       <mat-chip-set class="example-chip" cdkDropList>
         <mat-chip (click)="goToAgencyLocation()" class="example-box small">
           <mat-icon matChipAvatar class="text-secondary">apartment</mat-icon>
-          General Express (Mvan)
+          {{ siteName }}
         </mat-chip>
         <mat-chip class="example-box small">
           <mat-icon matChipAvatar class="text-secondary"
@@ -80,18 +85,19 @@
           Direct</mat-chip
         >
 
-        <mat-chip class="example-box small">
+        <!-- <mat-chip class="example-box small">
           <mat-icon matChipAvatar class="text-secondary">wifi</mat-icon
           >Wifi</mat-chip
         >
         <mat-chip class="example-box small">
           <mat-icon matChipAvatar class="text-secondary">power</mat-icon
           >Prise</mat-chip
-        >
+        > -->
       </mat-chip-set>
 
       <div>
         <span
+          *ngIf="voyage.bus.classe == 'VIP'"
           class="class-vip-mark small rounded-pill fw-semibold bg-danger d-flex justify-content-center align-items-center"
           >VIP</span
         >
@@ -102,8 +108,15 @@
     <div class="d-flex align-items-center justify-content-between p-3">
       <!-- price -->
       <div class="d-flex flex-column">
-        <span class="primar-color mb-1 fs-5 fw-semibold">4000 FCFA</span>
-        <span class="small text-secondary">Prix standard / passager</span>
+        <span class="primar-color mb-1 fs-5 fw-semibold"
+          >{{
+            voyage.bus.classe == "VIP"
+              ? voyage.itineraire.prixVip
+              : voyage.itineraire.prixClassique
+          }}
+          FCFA</span
+        >
+        <span class="small text-secondary">Prix / passager</span>
       </div>
 
       <!-- button -->

@@ -2,6 +2,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { Site } from 'src/app/Models/site.interface';
@@ -10,6 +11,8 @@ import { LoaderService } from 'src/app/Services/Loader/loader.service';
 import { VilleService } from 'src/app/Services/Ville/ville.service';
 import { VoyageService } from 'src/app/Services/Voyage/voyage.service';
 import { SiteService } from 'src/app/Services/site/site.service';
+import { PassagersDialogComponent } from '../../dialogs/passagers-dialog/passagers-dialog.component';
+import { ReservationService } from 'src/app/Services/Reservation/reservation.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +27,9 @@ export class HomeComponent {
     private _notifierService: NotifierService,
     protected _loaderService: LoaderService,
     private _voyageService: VoyageService,
-    private _router: Router
+    private _router: Router,
+    private _matDialog: MatDialog,
+    protected _reservationService: ReservationService
   ) { }
 
   // Matcher
@@ -42,6 +47,20 @@ export class HomeComponent {
   dateDepart: Date | null = null;
   site: Site = new Site();
 
+  /**
+   * 
+   */
+  open_passagers_dialog() {
+    let passagers_dialog = this._matDialog.open(PassagersDialogComponent, {
+      data: {}, minWidth: 400
+    });
+
+    passagers_dialog.afterClosed().subscribe(result => { });
+  }
+
+  // min date depart
+  minDate: Date = new Date();
+
   // Liste des villes
   villes: Ville[] = [];
 
@@ -54,7 +73,7 @@ export class HomeComponent {
   getVilles() {
     this._villeService.getAll().subscribe(response => {
       this.villes = response;
-    })
+    });
   }
 
   /**
@@ -77,69 +96,77 @@ export class HomeComponent {
       // ville depart != ville destination
       if (this.villeDepart.id != this.villeDestination.id) {
 
-        // start loader
-        this._loaderService.setIsLoading(true);
+        if (this._reservationService.passagers_adultes > 0) {
+          // start loader
+          this._loaderService.setIsLoading(true);
 
-        try {
+          try {
 
-          // on sauvegarde les valeur pour le filtre (agence, date depart, classe)
-          if (this.dateDepart != null)
-            this._voyageService.dateDepart = new Date(this.dateDepart.toISOString().split('T')[0] + "T00:00:00.000");
+            // on sauvegarde les valeur pour le filtre (agence, date depart, classe) ------------------------------------------------
+            if (this.dateDepart != null)
+              this._voyageService.dateDepart = new Date(this.dateDepart);
 
-          // get site
-          let s: Site | undefined = this.sites.find((s, i) => { return s.id == this.site.id });
-          if (s != undefined)
-            this._voyageService.site = s;
-
-          // ville depart
-          this._voyageService.villeDepart = this.villes.filter((v) => { return v.id == this.villeDepart.id; })[0];
-
-          // ville destination
-          this._voyageService.villeDestination = this.villes.filter((v) => { return v.id == this.villeDestination.id; })[0];
-
-          // liste des site
-          this._voyageService.sites = this.sites;
-
-          // send request
-          this._voyageService.getVoyages(
-            this.villeDepart.id, this.villeDestination.id
-          ).subscribe(response => {
-
-            // stop loader
-            this._loaderService.setIsLoading(false);
-
-            // parse response
-            let responseJson = JSON.parse(JSON.stringify(response));
-
-            if (responseJson.status == HttpStatusCode.InternalServerError) {
-              this._notifierService.notify('error', "Une erreur est survenue.");
-
-              // log error
-              console.log(responseJson);
-
+            // get site
+            let s: Site | undefined = this.sites.find((s, i) => { return s.id == this.site.id });
+            if (s != undefined) {
+              this._voyageService.site = s;
             } else {
-              if (responseJson.status == HttpStatusCode.Ok) {
+              this._voyageService.site.id = -1;
+            }
 
-                // on recupere la liste des voyage
-                this._voyageService.voyages = responseJson.data;
+            // ville depart
+            this._voyageService.villeDepart = this.villes.filter((v) => { return v.id == this.villeDepart.id; })[0];
 
-                // on affiche dans la console
-                console.log(responseJson.data);
+            // ville destination
+            this._voyageService.villeDestination = this.villes.filter((v) => { return v.id == this.villeDestination.id; })[0];
 
-                // on navigue vers la page des voyages
-                this._router.navigateByUrl('voyages');
+            // liste des site
+            this._voyageService.sites = this.sites;
+
+            // recuperation des parametres ---------------------------------------------------------------------------------------------
+
+            // send request
+            this._voyageService.getVoyages(
+              this.villeDepart.id, this.villeDestination.id
+            ).subscribe(response => {
+
+              // stop loader
+              this._loaderService.setIsLoading(false);
+
+              // parse response
+              let responseJson = JSON.parse(JSON.stringify(response));
+
+              if (responseJson.status == HttpStatusCode.InternalServerError) {
+                this._notifierService.notify('error', "Une erreur est survenue.");
+
+                // log error
+                console.error(responseJson.message);
 
               } else {
-                this._notifierService.notify('default', "Aucun trajet correspondant.");
-              }
-            }
-          });
-        } catch (error) {
-          this._notifierService.notify('error', "Une erreur est survenue.");
+                if (responseJson.status == HttpStatusCode.Ok) {
 
-          // log error in console
-          console.log(error);
+                  // on recupere la liste des voyage
+                  this._voyageService.voyages = responseJson.data;
+
+                  // on navigue vers la page des voyages
+                  this._router.navigateByUrl('voyages');
+
+                } else {
+                  this._notifierService.notify('default', "Aucun trajet correspondant.");
+                }
+              }
+            });
+          } catch (error) {
+            this._notifierService.notify('error', "Une erreur est survenue.");
+
+            // log error in console
+            console.log(error);
+          }
+        } else {
+          this._notifierService.notify('error', "Ajoutez au moins un adulte.")
         }
+
+
 
       } else {
         this._notifierService.notify('error', "La ville de départ doit être différente de la ville de destination");

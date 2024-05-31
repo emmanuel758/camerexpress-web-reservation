@@ -1,0 +1,277 @@
+<!-- ======= Header ======= -->
+<header id="header" class="d-flex align-items-center fixed-top">
+  <div class="container d-flex align-items-center">
+    <div class="d-flex align-items-center">
+      <!-- Logo -->
+      <a href="#" class="logo me-2">
+        <img src="../../../../assets/images/adaptive-icon.png" alt="" />
+      </a>
+
+      <!-- Title -->
+      <span class="fw-bold fs-4">CamerExpress</span>
+    </div>
+  </div>
+</header>
+<!-- End Header -->
+
+<!-- ===== CONTENT ===== -->
+<main id="main" class="pt-4 pb-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <!-- back button -->
+      <div class="mb-2 col-12">
+        <button mat-button (click)="go_to_voyage_list()">
+          <mat-icon>arrow_back</mat-icon> Retour
+        </button>
+      </div>
+
+      <!-- form -->
+      <div class="col-md-8">
+        <!-- Passagers section -->
+        <div class="mb-3">
+          <app-form-section class="mb-3" number="1" title="Passagers">
+            <!-- passagers adultes -->
+            <div
+              *ngFor="
+                let i of [].constructor(_reservationService.passagers_adultes);
+                let index = index
+              "
+            >
+              <!-- passagers type -->
+              <span class="text-secondary small fw-semibold"
+                >{{ index + 1 }}. Adulte</span
+              >
+
+              <!-- passagers field -->
+              <mat-form-field appearance="outline" class="p-0 w-100 mt-2">
+                <!-- <mat-label>Nom et prénom</mat-label> -->
+                <input
+                  matInput
+                  placeholder="Nom et prénom"
+                  [(ngModel)]="
+                    _reservationService.passagers_adultes_array[index]
+                  "
+                />
+              </mat-form-field>
+            </div>
+
+            <!-- passagers enfants -->
+            <div
+              *ngFor="
+                let i of [].constructor(_reservationService.passagers_enfant);
+                let index = index
+              "
+            >
+              <!-- passagers type -->
+              <span class="text-secondary small fw-semibold"
+                >{{ index + 1 }}. Enfant</span
+              >
+
+              <!-- passagers field -->
+              <mat-form-field appearance="outline" class="p-0 w-100 mt-2">
+                <!-- <mat-label>Nom et prénom</mat-label> -->
+                <input
+                  matInput
+                  placeholder="Nom et prénom"
+                  [(ngModel)]="
+                    _reservationService.passagers_enfant_array[index]
+                  "
+                />
+              </mat-form-field>
+            </div>
+          </app-form-section>
+        </div>
+
+        <!-- Réservation du siège section -->
+        <div class="mb-3">
+          <app-form-section
+            class="mb-3"
+            number="2"
+            title="Réservation du siège"
+          ></app-form-section>
+        </div>
+
+        <!-- Option section -->
+        <div class="mb-3">
+          <app-form-section
+            class="mb-3"
+            number="3"
+            title="Option"
+          ></app-form-section>
+        </div>
+
+        <!-- Contact section -->
+        <div class="mb-3">
+          <app-form-section
+            class="mb-3"
+            number="4"
+            title="Contact"
+          ></app-form-section>
+        </div>
+
+        <!-- Paiement section -->
+        <div class="mb-3">
+          <app-form-section
+            class="mb-3"
+            number="5"
+            title="Paiement"
+          ></app-form-section>
+        </div>
+      </div>
+
+      <!-- recap -->
+      <div class="col-md-4">
+        <!-- votre commande text -->
+        <div class="fw-semibold text-dark mb-2">Votre commande</div>
+
+        <!-- voyage recap -->
+        <div
+          class="bg-white rounded-2 border-1 border-secondary-subtle border-top border-bottom border-start border-end p-3"
+        >
+          <!-- site & arrets -->
+          <div class="d-flex justify-content-between mb-2">
+            <!-- site -->
+            <span>General (Mvan)</span>
+
+            <!-- arret -->
+            <span>VIP</span>
+          </div>
+
+          <!-- date & villes -->
+          <div class="d-flex">
+            <!-- divider icon -->
+            <div class="d-flex flex-column align-items-center me-2">
+              <i class="bi bi-circle text-secondary p-0"></i>
+              <div
+                class="divider bg-secondary text-secondary p-0 h-100"
+                style="margin-top: -5px !important"
+              >
+                .
+              </div>
+              <i
+                class="bi bi-circle-fill text-secondary p-o"
+                style="margin-top: -3px"
+              ></i>
+            </div>
+
+            <!-- content -->
+            <div class="w-100">
+              <!-- depart -->
+              <div class="mb-2 d-flex flex-column w-100">
+                <span class="small text-dark fw-semibold"
+                  >Lun. 10 Jan 2024</span
+                >
+
+                <span class="text-secondary small">Yaounde - 13:24</span>
+              </div>
+
+              <!-- arret -->
+              <!-- <div class="mb-"> -->
+              <ul class="mb-2">
+                <li class="xsmall text-secondary">Bafia</li>
+                <li class="xsmall text-secondary">Bafia</li>
+                <li class="xsmall text-secondary">Bafia</li>
+              </ul>
+              <!-- </div> -->
+
+              <!-- Destination -->
+              <div class="d-flex flex-column w-100">
+                <span class="small text-dark fw-semibold"
+                  >Lun. 10 Jan 2024</span
+                >
+                <span class="small text-secondary">Douala - 13:24</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passagers recap -->
+        <div class="pt-1 mb-3">
+          <mat-list class="pt-0 pb-0">
+            <!-- Adultes prix -->
+            <mat-list-item>
+              <div class="d-flex justify-content-between w-100">
+                <!-- passagers number & type -->
+                <span>4 Adulte(s)</span>
+                <!-- prix -->
+                <span>21 000 FCFA</span>
+              </div>
+            </mat-list-item>
+
+            <!-- divider -->
+            <mat-divider></mat-divider>
+
+            <!-- Enfant prix -->
+            <mat-list-item>
+              <div class="d-flex justify-content-between w-100">
+                <!-- passagers number & type -->
+                <span>1 enfant(s)</span>
+                <!-- prix -->
+                <span>21 000 FCFA</span>
+              </div>
+            </mat-list-item>
+
+            <!-- divider -->
+            <mat-divider></mat-divider>
+
+            <!-- Total -->
+            <mat-list-item>
+              <div class="d-flex justify-content-between w-100 fw-semibold">
+                <!-- passagers number & type -->
+                <span class="text-dark">TOTAL</span>
+                <!-- prix -->
+                <span>21 000 FCFA</span>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+        <!-- bon reduction -->
+        <div class="mb-3">
+          <mat-accordion>
+            <mat-expansion-panel
+              class="mat-elevation-z0 rounded-2 border-1 border-secondary-subtle border-top border-bottom border-start border-end"
+              (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false"
+            >
+              <mat-expansion-panel-header>
+                <mat-panel-title> Saisir le bon de réduction</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row">
+                <div class="col-sm-8">
+                  <mat-form-field appearance="outline" class="p-0 w-100">
+                    <!-- <mat-label>Nom et prénom</mat-label> -->
+                    <input matInput placeholder="Code" />
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <button
+                    (click)="valider_code_reduction()"
+                    style="height: 56px !important"
+                    class="col-sm-4 w-100"
+                    mat-stroked-button
+                    color="primary"
+                    [disabled]="_loaderService.isLoading"
+                  >
+                    <div class="d-flex align-items-center">
+                      <span
+                        *ngIf="_loaderService.isLoading"
+                        class="spinner-border spinner-border-sm text-secondary me-2"
+                      ></span>
+                      {{ _loaderService.isLoading ? "" : "Valider" }}
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+        <!-- payer button -->
+        <div class="w-100">
+          <button (click)="payer()" mat-raised-button color="primary" class="w-100">Payer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

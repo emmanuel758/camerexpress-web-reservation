@@ -18,20 +18,35 @@ export class VoyageService {
   ) {
   }
 
-
   /**
    * Voyage list
    */
   voyages: Voyage[] = [];
 
+  /**
+   * Voyage filter list
+   */
+  voyagesFilter: Voyage[] = [];
+
   // Filter variables
   villeDepart: Ville = new Ville();
   villeDestination: Ville = new Ville();
   dateDepart: Date | null = null;
-  site: Site  = new Site();
+  site: Site = new Site();
   // liste des sites en fonction de la ville de depart
   sites: Site[] = [];
-  classe: string | null = "";
+  classe: string | null = null;
+  // prix de reservation
+  min_prix_limit = 500;
+  min_prix = 500;
+  max_prix_limite = 10000;
+  max_prix = 10000;
+
+  // heure de depart
+  min_heure_limit = 0;
+  min_heure = 0;
+  max_heure_limit = 1410;
+  max_heure = 1410;
 
   /**
    * Get voyage request

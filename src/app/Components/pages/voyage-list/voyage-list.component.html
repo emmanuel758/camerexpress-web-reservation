@@ -4,29 +4,153 @@
 <!-- ===== CONTENT ===== -->
 <main id="main" class="pt-4 pb-4 bg-light">
   <div class="container">
-    <!-- back button area -->
-    <div class="d-flex align-items-center mb-4">
-      <!-- back button -->
-      <button
-        (click)="backToHome()"
-        mat-button
-        class="rounded-pill bg-gray me-3"
-      >
-        <div class="d-flex align-items-center ps-2 pe-2 text-secondary-dark">
-          <mat-icon matPrefix class="me-2">arrow_back</mat-icon>
-          <span>Retour</span>
+    <!-- Form value area -->
+    <div class="bg-white p-4 pb-1 mb-4">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <mat-radio-group
+            [disabled]="true"
+            aria-label="Select an option"
+            color="primary"
+            value="1"
+          >
+            <mat-radio-button class="me-3" value="1"
+              >Aller simle</mat-radio-button
+            >
+            <mat-radio-button value="2">Aller-retour</mat-radio-button>
+          </mat-radio-group>
         </div>
-      </button>
-
-      <!-- itineraire info area -->
-      <div
-        class="d-flex align-items-center bg-gray rounded-pill p-2 h-100 ps-3 pe-3 h-48"
-      >
-        <span>{{ _voyageService.villeDepart.nom }}</span>
-        <i
-          class="bi bi-circle-fill text-secondary ms-2 me-2 point-separator"
-        ></i>
-        <span>{{ _voyageService.villeDestination.nom }}</span>
+        <!-- de -->
+        <div class="col-lg-6 col-xl-4">
+          <mat-form-field appearance="outline" class="p-0 w-100">
+            <mat-label>De</mat-label>
+            <input
+              matInput
+              [(ngModel)]="_voyageService.villeDepart.nom"
+              [readonly]="true"
+            />
+          </mat-form-field>
+        </div>
+        <!-- A -->
+        <div class="col-lg-6 col-xl-4">
+          <mat-form-field appearance="outline" class="p-0 w-100">
+            <mat-label>À</mat-label>
+            <input
+              matInput
+              [(ngModel)]="_voyageService.villeDestination.nom"
+              [readonly]="true"
+            />
+          </mat-form-field>
+        </div>
+        <!-- Passager for large screen - modal dialog -->
+        <div class="col-lg-6 col-xl-4 d-none d-lg-flex">
+          <mat-form-field
+            (click)="open_passagers_dialog()"
+            appearance="outline"
+            class="p-0 w-100"
+          >
+            <mat-label>Passagers</mat-label>
+            <input
+              matInput
+              [(ngModel)]="_reservationService.passagers_text"
+              placeholder="0"
+              [readonly]="true"
+            />
+          </mat-form-field>
+        </div>
+        <!-- Passager for small screen - offcanvas -->
+        <div class="col-lg-6 col-xl-4 d-lg-none d-xl-none d-md-flex">
+          <mat-form-field
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasBottom"
+            aria-controls="offcanvasBottom"
+            appearance="outline"
+            class="p-0 w-100"
+          >
+            <mat-label> <mat-label>Passagers</mat-label></mat-label>
+            <input
+              matInput
+              [(ngModel)]="_reservationService.passagers_text"
+              placeholder="0"
+              [readonly]="true"
+            />
+          </mat-form-field>
+        </div>
+        <!-- Offcanvas passagers -->
+        <div
+          class="offcanvas offcanvas-bottom"
+          tabindex="-1"
+          id="offcanvasBottom"
+          aria-labelledby="offcanvasBottomLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Passagers</h5>
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body h-auto">
+            <!-- Adultes -->
+            <div class="col-md-12">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Adulte(s)</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="_reservationService.passagers_adultes"
+                  placeholder="0"
+                  [readonly]="true"
+                />
+                <!-- suffix -->
+                <button
+                  matSuffix
+                  mat-icon-button
+                  (click)="_reservationService.add_passager_adulte()"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+                <!-- prefix -->
+                <button
+                  matPrefix
+                  mat-icon-button
+                  (click)="_reservationService.reduce_passager_adulte()"
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <!-- Enfants (de 0 à 15 ans) -->
+            <div class="col-md-12">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Enfants (de 0 à 15 ans)</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="_reservationService.passagers_enfant"
+                  placeholder="0"
+                  [readonly]="true"
+                />
+                <!-- suffix -->
+                <button
+                  matSuffix
+                  mat-icon-button
+                  (click)="_reservationService.add_passager_enfant()"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+                <!-- prefix -->
+                <button
+                  matPrefix
+                  mat-icon-button
+                  (click)="_reservationService.reduce_passager_enfant()"
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -49,7 +173,7 @@
       <!-- result number -->
       <div>
         <span class="bg-gray p-2 small rounded-2 text-secondary">{{
-          _voyageService.voyages.length + " resultats"
+          _voyageService.voyagesFilter.length + " resultats"
         }}</span>
       </div>
     </div>
@@ -58,16 +182,17 @@
     <div *ngIf="isFilterVisible" class="p-3 bg-white ps-4 pe-4 pt-4 mb-4">
       <div class="row">
         <!-- Agence -->
-        <div class="col-sm-4">
+        <div class="col-md-4">
           <mat-form-field appearance="outline" class="p-0 w-100">
             <mat-label>Agence</mat-label>
             <mat-select
-              [value]="_voyageService.site.id"
+              [(value)]="_voyageService.site.id"
               [(ngModel)]="_voyageService.site.id"
+              (valueChange)="filterVoyage()"
             >
               <mat-option
                 *ngFor="let site of _voyageService.sites"
-                value="{{ site.id }}"
+                [value]="site.id"
                 >{{ site.agence.nom + "(" + site.quartier + ")" }}</mat-option
               >
             </mat-select>
@@ -84,15 +209,17 @@
         </div>
 
         <!-- Classe -->
-        <div class="col-sm-4">
+        <div class="col-md-4">
           <mat-form-field appearance="outline" class="p-0 w-100">
             <mat-label>Classe</mat-label>
             <mat-select
               [value]="_voyageService.classe"
+              ngModel
               [(ngModel)]="_voyageService.classe"
+              (ngModelChange)="filterVoyage()"
             >
-              <mat-option>VIP</mat-option>
-              <mat-option>CLASSIQUE</mat-option>
+              <mat-option value="VIP">VIP</mat-option>
+              <mat-option value="CLASSIQUE">CLASSIQUE</mat-option>
             </mat-select>
 
             <!-- si une classe a ete selectionnee -->
@@ -108,14 +235,16 @@
         </div>
 
         <!-- Date depart -->
-        <div class="col-sm-4">
+        <div class="col-md-4">
           <mat-form-field appearance="outline" class="p-0 w-100 d-non">
             <mat-label>Date de départ</mat-label>
             <input
               matInput
               [matDatepicker]="datePicker"
               placeholder="Selectionner une date"
+              [(ngModel)]="_voyageService.dateDepart"
               [readonly]="true"
+              (ngModelChange)="filterVoyage()"
             />
             <!-- si une date n'a pas ete selectionnee -->
             <button
@@ -146,6 +275,62 @@
             </mat-datepicker>
           </mat-form-field>
         </div>
+
+        <!-- Prix -->
+        <div class="col-md-6 mb-3">
+          <!-- text -->
+          <div class="mb-1 d-flex flex-column">
+            <span class="text-secondary fw-semibold mb-1"
+              >Prix de réservation</span
+            >
+            <span class="text-secondary small">{{
+              _voyageService.min_prix +
+                " FCFA - " +
+                _voyageService.max_prix +
+                " FCFA"
+            }}</span>
+          </div>
+          <mat-slider
+            [min]="_voyageService.min_prix_limit"
+            [max]="_voyageService.max_prix_limite"
+            class="w-100"
+            step="500"
+          >
+            <input
+              [(ngModel)]="_voyageService.min_prix"
+              (ngModelChange)="filterVoyage()"
+              
+              matSliderStartThumb
+            />
+            <input
+              [(ngModel)]="_voyageService.max_prix"
+              (ngModelChange)="filterVoyage()"
+              matSliderEndThumb
+            />
+          </mat-slider>
+        </div>
+
+        <!-- Heure -->
+        <div class="col-md-6 mb-3">
+          <!-- text -->
+          <div class="mb-1 d-flex flex-column">
+            <span class="text-secondary fw-semibold mb-1">Heure de départ</span>
+            <span class="text-secondary small">{{
+              convertMinutesToHHMM(_voyageService.min_heure) +
+                " - " +
+                convertMinutesToHHMM(_voyageService.max_heure)
+            }}</span>
+          </div>
+          <mat-slider
+            [min]="_voyageService.min_heure_limit"
+            [max]="_voyageService.max_heure_limit"
+            class="w-100"
+            step="30"
+          >
+            <input [(ngModel)]="_voyageService.min_heure" matSliderStartThumb />
+            <input [(ngModel)]="_voyageService.max_heure" matSliderEndThumb />
+          </mat-slider>
+        </div>
       </div>
     </div>
 
@@ -153,7 +338,7 @@
     <div class="mb-3">
       <div class="row">
         <app-voyage-item
-          *ngFor="let voyage of _voyageService.voyages"
+          *ngFor="let voyage of _voyageService.voyagesFilter"
           [voyage]="voyage"
           class="col-lg-6 mb-4"
         ></app-voyage-item>

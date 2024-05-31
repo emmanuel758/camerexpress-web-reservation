@@ -1,0 +1,20 @@
+<div
+  class="p-4 pb-1 rounded-2 border-1 border-secondary-subtle border-top border-bottom border-start border-end bg-white"
+>
+  <!-- header -->
+  <div class="d-flex align-items-center">
+    <!-- number -->
+    <span
+      class="p-2 rounded-2 bg-primary me-3 fw-semibold number-frame d-flex align-items-center justify-content-center text-light"
+      >{{ number }}</span
+    >
+
+    <!-- title -->
+    <span class="fw-semibold">{{ title }}</span>
+  </div>
+
+  <!-- content -->
+  <div class="mt-3">
+    <ng-content></ng-content>
+  </div>
+</div>
