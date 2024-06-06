@@ -36,6 +36,7 @@ import { FullLoaderComponent } from './Components/components/full-loader/full-lo
 import { DatePipe } from '@angular/common';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { NavbarComponent } from './Components/components/navbar/navbar.component';
 import { FooterComponent } from './Components/components/footer/footer.component';
@@ -79,6 +80,7 @@ import { SuccessReservationDiaogComponent } from './Components/dialogs/success-r
     NgxScrollTopModule,
     MatSliderModule,
     MatRadioModule,
+    MatCheckboxModule,
     HttpClientModule,
     FormsModule,
     MatIconModule,

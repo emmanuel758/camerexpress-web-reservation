@@ -48,6 +48,8 @@
                 <input
                   matInput
                   placeholder="Nom et prénom"
+                  [errorStateMatcher]="matcher"
+                  [formControl]="passager_adulte_formsControls[index]"
                   [(ngModel)]="
                     _reservationService.passagers_adultes_array[index]
                   "
@@ -73,6 +75,8 @@
                 <input
                   matInput
                   placeholder="Nom et prénom"
+                  [errorStateMatcher]="matcher"
+                  [formControl]="passager_enfant_formsControls[index]"
                   [(ngModel)]="
                     _reservationService.passagers_enfant_array[index]
                   "
@@ -88,16 +92,39 @@
             class="mb-3"
             number="2"
             title="Réservation du siège"
-          ></app-form-section>
+          >
+            <button
+              mat-button
+              class="border-1 border-dark-subtle rounded-2 border-start border-end border-top border-bottom mb-3 w-100"
+            >
+              <!-- choose button -->
+              <div class="d-flex align-items-center">
+                <!-- icon -->
+                <mat-icon class="me-3">accessible_forward</mat-icon>
+
+                <!--  -->
+                <div class="d-flex align-items-center w-100">
+                  <span class="me-3">Choisir un siege</span>
+                  <span class="small text-secondary">A partir de 200 FCFA</span>
+                </div>
+
+                <!-- icon -->
+                <mat-icon>chevron_right</mat-icon>
+              </div>
+            </button>
+
+            <!-- choosen place -->
+            <mat-chip-set class="example-chip mb-2">
+              <mat-chip class="example-box"> 44 </mat-chip>
+              <mat-chip class="example-box"> 60 </mat-chip>
+            </mat-chip-set>
+          </app-form-section>
         </div>
 
         <!-- Option section -->
         <div class="mb-3">
-          <app-form-section
-            class="mb-3"
-            number="3"
-            title="Option"
-          ></app-form-section>
+          <app-form-section class="mb-3" number="3" title="Option">
+          </app-form-section>
         </div>
 
         <!-- Contact section -->
@@ -111,11 +138,44 @@
 
         <!-- Paiement section -->
         <div class="mb-3">
-          <app-form-section
-            class="mb-3"
-            number="5"
-            title="Paiement"
-          ></app-form-section>
+          <app-form-section class="mb-3" number="5" title="Paiement">
+            <div
+              class="d-flex align-items-center justify-content-between w-100 mb-2"
+            >
+              <span
+                id="example-radio-group-label"
+                class="mt-0 text-sencondary small mb-2"
+                >Choisir un moyen de paiement</span
+              >
+
+              <button (click)="clear_moyen_paiement()" class="small btn btn-sm">
+                Effacer la sélection
+              </button>
+            </div>
+            <div
+              class="border-1 border-dark-subtile border-top border-bottom border-start border-end rounded-2 mb-4"
+            >
+              <mat-radio-group
+                color="primary"
+                aria-labelledby="example-radio-group-label"
+                class="example-radio-group"
+                [(ngModel)]="ID_moyenpaiement"
+              >
+                <!-- tesea-pay -->
+                <div class="p-2">
+                  <mat-radio-button [value]="1" class=""
+                    ><img
+                      src="../../../../assets/images/camerexpressweb.svg"
+                      width="120"
+                      alt="teseapay-logo"
+                      srcset=""
+                    />
+                    Tesea-Pay</mat-radio-button
+                  >
+                </div>
+              </mat-radio-group>
+            </div>
+          </app-form-section>
         </div>
       </div>
 
@@ -131,10 +191,10 @@
           <!-- site & arrets -->
           <div class="d-flex justify-content-between mb-2">
             <!-- site -->
-            <span>General (Mvan)</span>
+            <span>{{ siteName }}</span>
 
             <!-- arret -->
-            <span>VIP</span>
+            <span>{{ _reservationService.selected_voyage.bus.classe }}</span>
           </div>
 
           <!-- date & villes -->
@@ -158,28 +218,36 @@
             <div class="w-100">
               <!-- depart -->
               <div class="mb-2 d-flex flex-column w-100">
-                <span class="small text-dark fw-semibold"
-                  >Lun. 10 Jan 2024</span
-                >
+                <span class="small text-dark fw-semibold">{{
+                  depart_datetime.date
+                }}</span>
 
-                <span class="text-secondary small">Yaounde - 13:24</span>
+                <span class="text-secondary small">{{
+                  _reservationService.selected_voyage.itineraire.villeDepart
+                    .nom +
+                    " - " +
+                    depart_datetime.time
+                }}</span>
               </div>
 
               <!-- arret -->
-              <!-- <div class="mb-"> -->
-              <ul class="mb-2">
+              <ul class="mb-2 d-none">
                 <li class="xsmall text-secondary">Bafia</li>
                 <li class="xsmall text-secondary">Bafia</li>
                 <li class="xsmall text-secondary">Bafia</li>
               </ul>
-              <!-- </div> -->
 
               <!-- Destination -->
               <div class="d-flex flex-column w-100">
-                <span class="small text-dark fw-semibold"
-                  >Lun. 10 Jan 2024</span
-                >
-                <span class="small text-secondary">Douala - 13:24</span>
+                <span class="small text-dark fw-semibold">{{
+                  arriver_datetime.date
+                }}</span>
+                <span class="small text-secondary">{{
+                  _reservationService.selected_voyage.itineraire
+                    .villeDestination.nom +
+                    " - " +
+                    arriver_datetime.time
+                }}</span>
               </div>
             </div>
           </div>
@@ -192,9 +260,11 @@
             <mat-list-item>
               <div class="d-flex justify-content-between w-100">
                 <!-- passagers number & type -->
-                <span>4 Adulte(s)</span>
+                <span
+                  >{{ _reservationService.passagers_adultes }} Adulte(s)</span
+                >
                 <!-- prix -->
-                <span>21 000 FCFA</span>
+                <span>{{ prix_total_passager_adulte }} FCFA</span>
               </div>
             </mat-list-item>
 
@@ -205,9 +275,11 @@
             <mat-list-item>
               <div class="d-flex justify-content-between w-100">
                 <!-- passagers number & type -->
-                <span>1 enfant(s)</span>
+                <span
+                  >{{ _reservationService.passagers_enfant }} enfant(s)</span
+                >
                 <!-- prix -->
-                <span>21 000 FCFA</span>
+                <span>{{ prix_total_passager_enfant }} FCFA</span>
               </div>
             </mat-list-item>
 
@@ -220,7 +292,7 @@
                 <!-- passagers number & type -->
                 <span class="text-dark">TOTAL</span>
                 <!-- prix -->
-                <span>21 000 FCFA</span>
+                <span>{{ prix_total_passager }} FCFA</span>
               </div>
             </mat-list-item>
           </mat-list>
@@ -267,9 +339,32 @@
           </mat-accordion>
         </div>
 
+        <!-- politique confidentialite -->
+        <mat-checkbox
+          [checked]="isTermspolicyChecked"
+          [(ngModel)]="isTermspolicyChecked"
+          color="primary"
+          class="example-margin mb-3"
+          >Je déclare avoir lu la
+          <a href="" target="_blank" class="text-decoration-none"
+            >politique de confidentialié</a
+          >
+          et j'accepte les
+          <a class="text-decoration-none" href="" target="_blank"
+            >conditions générales d'utilisations</a
+          >
+        </mat-checkbox>
+
         <!-- payer button -->
         <div class="w-100">
-          <button (click)="payer()" mat-raised-button color="primary" class="w-100">Payer</button>
+          <button
+            (click)="payer()"
+            mat-raised-button
+            color="primary"
+            class="w-100"
+          >
+            Payer
+          </button>
         </div>
       </div>
     </div>

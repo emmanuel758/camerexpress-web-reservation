@@ -307,3 +307,9 @@
 .xsmall{
   font-size: 13px;
 }
+.example-margin {
+  margin: 0 12px;
+}
+.padding-radio-button{
+  padding: 16px !important;
+}

@@ -8,7 +8,7 @@ export class ReservationService {
 
   constructor() { }
 
-  // voyage selectionner
+  // voyage selectionner pour la reservation
   selected_voyage!: Voyage;
 
   // passagers number

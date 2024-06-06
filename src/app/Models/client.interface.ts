@@ -1,14 +1,14 @@
 import { Profil } from "./Profil.interface"
 import { Site } from "./site.interface"
+import { Ville } from "./ville.interface"
 
-export class Personnel {
+export class Client {
     id!: number
-    site!: Site
-    profil!: Profil
+    username!: string
+    password!:string
     nom!: string
-    telephone!: string
+    ville!: Ville
     quartier!: string
+    telephone!: string
     email!: string
-    login!: string
-    password!: string
 }

@@ -28,7 +28,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "src/assets/js/bootstrap.bundle.min.js"
+              "src/assets/js/bootstrap.bundle.min.js",
+              "node_modules/jspdf/dist/jspdf.node.min.js"
             ]
           },
           "configurations": {
@@ -89,7 +90,8 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "src/assets/js/bootstrap.bundle.min.js"
+              "src/assets/js/bootstrap.bundle.min.js",
+              "node_modules/jspdf/dist/jspdf.node.min.js"
             ]
           }
         }
