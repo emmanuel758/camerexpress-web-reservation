@@ -1,18 +1,18 @@
 <div class="container-fluid">
   <!-- header -->
   <!-- icon -->
-  <!-- <div class="text-center" style="margin-top: -40px; overflow: visible">
+  <div class="text-center">
     <span>
       <i
         class="bi bi-check-circle-fill text-success text-center"
         style="font-size: 60px"
       ></i>
     </span>
-  </div> -->
+  </div>
   <div
-    class="fw-bold text-start d-flex justify-content-center pt-4 pb-2 ps-3 pe-3 align-items-center"
+    class="fw-bold text-start d-flex justify-content-center pt-2 pb-2 ps-3 pe-3 align-items-center"
   >
-    <span class="me-4">{{ title }}</span>
+    <span class="fs-3">{{ title }}</span>
   </div>
 
   <!-- content -->
@@ -24,7 +24,15 @@
     <!-- output code -->
     <mat-form-field appearance="outline" class="p-0 w-100">
       <mat-label>Code de reservation</mat-label>
-      <input matInput placeholder="Code" [readonly]="true" />
+      <input
+        matInput
+        placeholder="Code"
+        [(ngModel)]="reservation.code"
+        [readonly]="true"
+      />
+      <button mat-icon-button matSuffix (click)="copyToClipboard()">
+        <mat-icon>content_copy</mat-icon>
+      </button>
     </mat-form-field>
   </mat-dialog-content>
 
@@ -41,4 +49,17 @@
       Ok
     </button>
   </mat-dialog-actions>
+</div>
+
+<!-- ticker -->
+<div class="d-none">
+  <div id="ticket-ID" class="p-4 bg-dark text-light">
+    <h3>Hello</h3>
+    <i class="bi bi-list"></i>
+    <qrcode
+      [qrdata]="'ABC'"
+      [width]="256"
+      [errorCorrectionLevel]="'M'"
+    ></qrcode>
+  </div>
 </div>

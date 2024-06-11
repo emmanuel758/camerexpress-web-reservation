@@ -13,13 +13,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NotifierModule } from 'angular-notifier';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
@@ -35,9 +35,9 @@ import { MyErrorStateMatcher } from './Components/Utils/MyErroStateMatcher';
 import { FullLoaderComponent } from './Components/components/full-loader/full-loader.component';
 import { DatePipe } from '@angular/common';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { NavbarComponent } from './Components/components/navbar/navbar.component';
 import { FooterComponent } from './Components/components/footer/footer.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -50,6 +50,8 @@ import { ReservationFormComponent } from './Components/pages/reservation-form/re
 import { FormSectionComponent } from './Components/components/form-section/form-section.component';
 import { CustomAlertComponent } from './Components/dialogs/custom-alert/custom-alert.component';
 import { SuccessReservationDiaogComponent } from './Components/dialogs/success-reservation-diaog/success-reservation-diaog.component';
+import { PdfService } from './Services/Pdf/pdf.service';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -72,6 +74,8 @@ import { SuccessReservationDiaogComponent } from './Components/dialogs/success-r
     SuccessReservationDiaogComponent,
   ],
   imports: [
+    QRCodeModule,
+
     MatDividerModule,
     MatExpansionModule,
     BrowserAnimationsModule,
@@ -115,7 +119,8 @@ import { SuccessReservationDiaogComponent } from './Components/dialogs/success-r
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: MyErrorStateMatcher },
-    { provide: DatePipe }
+    { provide: DatePipe },
+    { provide: PdfService }
   ],
   bootstrap: [AppComponent]
 })

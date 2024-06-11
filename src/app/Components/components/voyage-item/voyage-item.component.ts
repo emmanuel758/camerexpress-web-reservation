@@ -7,6 +7,7 @@ import { DateTime } from 'src/app/Models/datetime.interface';
 import { DatetimeService } from 'src/app/Services/Datetime/datetime.service';
 import { ReservationService } from 'src/app/Services/Reservation/reservation.service';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-voyage-item',
@@ -36,7 +37,8 @@ export class VoyageItemComponent {
     private _matDialog: MatDialog,
     private _datetimeService: DatetimeService,
     private _reservationService: ReservationService,
-    private _router:Router
+    private _router: Router,
+    private _notifierService: NotifierService
   ) {
 
   }
@@ -65,11 +67,18 @@ export class VoyageItemComponent {
    * Select current voyahe and go to reservation page
    */
   goToRservationPage() {
-    // selected voyage
-    this._reservationService.selected_voyage = this.voyage;
 
-    // navigate to reservation form
-    this._router.navigateByUrl("reservation-form");
+    // verifier sil y'a aumoins un adulte
+    if (this._reservationService.passagers_adultes > 0) {
+      // selected voyage
+      this._reservationService.selected_voyage = this.voyage;
+
+      // navigate to reservation form
+      this._router.navigateByUrl("reservation-form");
+    } else {
+      this._notifierService.notify('error', "Ajouter au moins un adulte");
+    }
+
   }
 
   ngOnInit() {

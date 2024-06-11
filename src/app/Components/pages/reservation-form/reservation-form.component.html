@@ -163,13 +163,7 @@
               >
                 <!-- tesea-pay -->
                 <div class="p-2">
-                  <mat-radio-button [value]="1" class=""
-                    ><img
-                      src="../../../../assets/images/camerexpressweb.svg"
-                      width="120"
-                      alt="teseapay-logo"
-                      srcset=""
-                    />
+                  <mat-radio-button [value]="1" class="">
                     Tesea-Pay</mat-radio-button
                   >
                 </div>
@@ -362,8 +356,15 @@
             mat-raised-button
             color="primary"
             class="w-100"
+            [disabled]="_loaderService.isLoading"
           >
-            Payer
+            <div class="d-flex align-items-center">
+              <span
+                *ngIf="_loaderService.isLoading"
+                class="spinner-border spinner-border-sm text-secondary me-2"
+              ></span>
+              {{ _loaderService.isLoading ? "Traitement ..." : "Payer" }}
+            </div>
           </button>
         </div>
       </div>

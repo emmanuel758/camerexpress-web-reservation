@@ -12,6 +12,9 @@ import { Reservation } from 'src/app/Models/reservation.interface';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
+import { HttpStatusCode } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { PdfService } from 'src/app/Services/Pdf/pdf.service';
 
 @Component({
   selector: 'app-reservation-form',
@@ -26,7 +29,8 @@ export class ReservationFormComponent {
     protected _loaderService: LoaderService,
     private _datetimeService: DatetimeService,
     private _notifierService: NotifierService,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    private _router: Router,
   ) { }
 
   // error state matcher
@@ -135,26 +139,59 @@ export class ReservationFormComponent {
     // lancement du moyen de paiement selectionner
     // envoi de la requete de paiement
     // si paiement effectuer -> envoi de la requete de creation de reservation
-    
-    // au retour de la reponse, generer le billet
-    this.generer_billet(new Reservation);
-    // ouverture de la boite de dialogue pour afficher le code de reservation
-    // code ...
-    let result_dialog = this._matDialog.open(CustomAlertComponent, {
-      data: {
-        title: "Felicitation",
-        message: "Votre reservation a ete confirmer avec success",
-        type: "success",
-        code: "KJD98X"
+    let reservation: Reservation = new Reservation();
+    reservation.client = null;
+    reservation.nom = this._reservationService.passagers_adultes_array[0];
+    reservation.placesAdulte = this._reservationService.passagers_adultes;
+    reservation.placesEnfant = this._reservationService.passagers_enfant;
+    reservation.passagers = JSON.stringify(this._reservationService.passagers_adultes_array.concat(this._reservationService.passagers_enfant_array));
+    reservation.voyage = this._reservationService.selected_voyage;
+    reservation.classe = this._reservationService.selected_voyage.bus.classe;
+    reservation.bagages = "";
+    reservation.isAlertSms = false;
+    reservation.scanned = false;
+    reservation.prix = this._reservationService.selected_voyage.bus.classe == "VIP" ? this._reservationService.selected_voyage.itineraire.prixVip : this._reservationService.selected_voyage.itineraire.prixClassique;
+    reservation.statut = "CONFIRMÉE";
+
+    let data = {
+      reservation: reservation,
+      bons: []
+    }
+
+    // start loader
+    this._loaderService.isLoading = true;
+
+    // send request
+    this._reservationService.create(data).subscribe(response => {
+      // stop loader
+      this._loaderService.setIsLoading(false);
+
+      if (response.status == HttpStatusCode.Created) {
+        // au retour de la reponse, generer le billet
+        let reservationResponse: Reservation = response.data;
+
+        // ouverture de la boite de dialogue pour afficher le code de reservation
+        // code ...
+        let result_dialog = this._matDialog.open(CustomAlertComponent, {
+          data: {
+            title: "Félicitation",
+            message: "Votre reservation a été confirmé avec succèss",
+            type: "success",
+            reservation: reservationResponse
+          }
+        });
+
+        // retour a la page d'accueil
+        result_dialog.afterClosed().subscribe(_ => {
+          this._router.navigateByUrl('/');
+        });
+      } else {
+        this._notifierService.notify('error', "Une erreur est survenue.");
+        console.error(response.message);
       }
     });
-  }
 
-  /**
-   * Generer le billet d'une reservation
-   * @param reservation
-   */
-  generer_billet(reservation: Reservation) { }
+  }
 
   ngOnInit() {
 

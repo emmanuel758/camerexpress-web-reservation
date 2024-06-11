@@ -1,12 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Response } from 'src/app/Models/Response.interface';
 import { Voyage } from 'src/app/Models/voyage.interface';
+import { AppService } from '../app/app.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
 
-  constructor() { }
+  constructor(
+    private _appService: AppService,
+    private _httpClient: HttpClient
+  ) { }
 
   // voyage selectionner pour la reservation
   selected_voyage!: Voyage;
@@ -76,5 +83,10 @@ export class ReservationService {
 
     // update text
     this.updatePassagersText();
+  }
+
+  create(data: any): Observable<Response> {
+    let url = this._appService.baseUrl + "/api/reservation/create";
+    return this._httpClient.post<Response>(url, data);
   }
 }
