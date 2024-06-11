@@ -1,0 +1,115 @@
+<!-- ==== Header ==== -->
+<app-navbar></app-navbar>
+<!-- End header -->
+
+<body>
+  <!-- ==== content ==== -->
+  <main id="main" class="pt-4 pb-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <!-- breadcrum -->
+        <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+            <li class="breadcrumb-item"><a>Service</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Gérer ma réservation
+            </li>
+          </ol>
+        </nav>
+        <!-- content -->
+        <div class="col-lg-10">
+          <!-- back button -->
+          <div class="mb-2 col-12 d-none">
+            <button mat-button (click)="_router.navigateByUrl('/')">
+              <mat-icon>arrow_back</mat-icon> Retour
+            </button>
+          </div>
+
+          <!-- page title -->
+          <div class="mb-3">
+            <span class="fw-semibold text-dark fs-4">Gérer ma réservation</span>
+          </div>
+
+          <!-- image section -->
+          <div class="img container-fluid mb-3 rounded-2"></div>
+
+          <!-- action button -->
+          <div class="mb-4">
+            <button mat-raised-button color="primary" class="mw-400 w-100">
+              Accéder au formulaire
+            </button>
+          </div>
+
+          <!-- header description -->
+          <div class="mb-4">
+            <p>
+              <strong>Gérer ma réservation</strong> est votre guichet unique
+              pour toutes les informations et les documents liés à votre
+              réservation et donc à vos trajets.
+            </p>
+
+            <span>Depuis ce service, vous pouvez:</span>
+            <ul class="mt-2">
+              <li class="text-decoration-underline text-primary">
+                Modifier les informations de contact
+              </li>
+              <li class="text-decoration-underline text-primary">
+                Reprogrammer vos trajets
+              </li>
+              <li class="text-decoration-underline text-primary">
+                Modifier votre réservation
+              </li>
+              <li class="text-decoration-underline text-primary">
+                Annuler votre réservation
+              </li>
+            </ul>
+          </div>
+
+          <!-- content description -->
+          <div>
+            <!-- section Modifier les informations de contact  -->
+            <div class="mb-3">
+              <!-- header -->
+              <div class="d-flex align-items-center">
+                <i class="bi bi-person-exclamation fs-1 me-3"></i>
+                <span class="fs-3 text-secondary fw-bold mb-2"
+                  >Modifier le nom  les informations de contact</span
+                >
+              </div>
+
+              <!-- content -->
+              <p>
+                Vos informations de contact sont tres importante , C'est pourquoi nous 
+                vous offrons la possibilite de les modifier gratuitement. N'oubliez pas 
+                d'ajouter votre numero de telephone pour recevoir des notifications par 
+                sms sur vos trajets. 
+              </p>
+            </div>
+
+            <!-- section Reprogrammer vos trajets  -->
+            <div class="mb-3"></div>
+
+            <!-- section Modifier votre réservation  -->
+            <div class="mb-3"></div>
+
+            <!-- section Annuler votre réservation  -->
+            <div class="mb-3"></div>
+          </div>
+
+          <!--  -->
+        </div>
+
+        <!-- navigation -->
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+    <!-- ==== divider ==== -->
+    <mat-divider></mat-divider>
+  </main>
+  <!-- End content -->
+
+  <!-- ==== footer ==== -->
+  <app-footer></app-footer>
+  <!-- End footer -->
+</body>

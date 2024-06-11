@@ -52,6 +52,7 @@ import { CustomAlertComponent } from './Components/dialogs/custom-alert/custom-a
 import { SuccessReservationDiaogComponent } from './Components/dialogs/success-reservation-diaog/success-reservation-diaog.component';
 import { PdfService } from './Services/Pdf/pdf.service';
 import { QRCodeModule } from 'angularx-qrcode';
+import { GererReservationComponent } from './Components/pages/gerer-reservation/gerer-reservation.component';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     FormSectionComponent,
     CustomAlertComponent,
     SuccessReservationDiaogComponent,
+    GererReservationComponent,
   ],
   imports: [
     QRCodeModule,

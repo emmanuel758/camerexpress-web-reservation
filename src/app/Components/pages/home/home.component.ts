@@ -177,6 +177,27 @@ export class HomeComponent {
 
   }
 
+  /**
+   * Naviguer vers la page serice correspondant
+   * 
+   * 1 = GERER MA RESERVATION  
+   * 2 = RECHERCHE APPROFONDIE  
+   * 3 = AIDE  
+   * @param service 
+   */
+  go_to_service_page(service: number) {
+
+    switch (service) {
+      case 1:
+        this._router.navigateByUrl("service/gerer-reservation");
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
   ngOnInit() {
     this.site.id = -1;
     this.getVilles();
