@@ -85,8 +85,23 @@ export class ReservationService {
     this.updatePassagersText();
   }
 
+  /**
+   * Creer une reservation 
+   * @param data 
+   * @returns 
+   */
   create(data: any): Observable<Response> {
     let url = this._appService.baseUrl + "/api/reservation/create";
     return this._httpClient.post<Response>(url, data);
+  }
+
+  /**
+   * Recuperer une reservation a partir du code
+   * @param code 
+   * @returns 
+   */
+  getOne(code: string): Observable<Response> {
+    let url = this._appService.baseUrl + "/api/reservation/get/" + code;
+    return this._httpClient.get<Response>(url);
   }
 }

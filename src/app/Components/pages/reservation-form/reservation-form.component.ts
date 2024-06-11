@@ -150,7 +150,8 @@ export class ReservationFormComponent {
     reservation.bagages = "";
     reservation.isAlertSms = false;
     reservation.scanned = false;
-    reservation.prix = this._reservationService.selected_voyage.bus.classe == "VIP" ? this._reservationService.selected_voyage.itineraire.prixVip : this._reservationService.selected_voyage.itineraire.prixClassique;
+    let p = this._reservationService.selected_voyage.bus.classe == "VIP" ? this._reservationService.selected_voyage.itineraire.prixVip : this._reservationService.selected_voyage.itineraire.prixClassique;
+    reservation.prix = p * (reservation.placesAdulte + reservation.placesEnfant);
     reservation.statut = "CONFIRMÉE";
 
     let data = {

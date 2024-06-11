@@ -21,6 +21,8 @@ export class VoyageListComponent {
     private _matDialog: MatDialog
   ) { }
 
+  now: Date = new Date();
+
   /**
    * 
    */

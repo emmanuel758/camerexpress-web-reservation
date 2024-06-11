@@ -53,6 +53,7 @@ import { SuccessReservationDiaogComponent } from './Components/dialogs/success-r
 import { PdfService } from './Services/Pdf/pdf.service';
 import { QRCodeModule } from 'angularx-qrcode';
 import { GererReservationComponent } from './Components/pages/gerer-reservation/gerer-reservation.component';
+import { CheckReservationFormComponent } from './Components/pages/check-reservation-form/check-reservation-form.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { GererReservationComponent } from './Components/pages/gerer-reservation/
     CustomAlertComponent,
     SuccessReservationDiaogComponent,
     GererReservationComponent,
+    CheckReservationFormComponent,
   ],
   imports: [
     QRCodeModule,
