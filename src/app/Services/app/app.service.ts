@@ -7,7 +7,7 @@ export class AppService {
 
   constructor() { }
 
-  host = '192.168.43.245';
-  port = '8080';
+  host = 'monorail.proxy.rlwy.net';
+  port = '46323';
   baseUrl = `http://${this.host}:${this.port}`;
 }
