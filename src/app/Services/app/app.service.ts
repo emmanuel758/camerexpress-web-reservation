@@ -9,5 +9,7 @@ export class AppService {
 
   host = 'monorail.proxy.rlwy.net';
   port = '46323';
-  baseUrl = `http://${this.host}:${this.port}`; 
+  // camerexpress-bookservice-production.up.railway.app
+  // baseUrl = `http://${this.host}:${this.port}`; 
+  baseUrl = `https://camerexpress-bookservice-production.up.railway.app`; 
 }
